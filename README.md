@@ -1,85 +1,144 @@
-# 🎬 Convertidores
+# 🛠️ Convertidores
 
-Una colección de scripts en Python para convertir y descargar vídeos y audio de forma sencilla desde la terminal.
+Colección de scripts de Python para convertir y descargar archivos multimedia de forma sencilla desde la terminal.
 
 ---
 
-## 📦 Scripts incluidos
+## 📦 Scripts disponibles
 
-| Script | Descripción |
-|--------|-------------|
-| `convertidor.py` | Convierte archivos `.MOV` a `.mp4` |
-| `youtube_mp3.py` | Descarga el audio de un vídeo de YouTube en `.mp3` |
-| `youtube_mp4.py` | Descarga un vídeo de YouTube en `.mp4` |
+| Script | Función |
+|---|---|
+| `convertidor.py` | Convierte archivos `.mov` a `.mp4` |
+| `youtube_mp3.py` | Descarga audio de YouTube en `.mp3` |
+| `youtube_mp4.py` | Descarga vídeo de YouTube en `.mp4` |
+| `convertir_imagenes.py` | Convierte imágenes a `.webp` o `.avif` |
 
 ---
 
 ## ⚙️ Requisitos
 
-- Python 3.7+
+- Python 3.10 o superior
 - pip
 
 ---
 
-## 🚀 Instalación
+## 🎬 convertidor.py — MOV a MP4
 
-Clona el repositorio:
+Convierte todos los archivos `.mov` de una carpeta a `.mp4` usando `moviepy`.
 
-```bash
-git clone https://github.com/adriraw/convertidores.git
-cd convertidores
-```
-
-Instala las dependencias:
+### Instalación
 
 ```bash
-pip install moviepy yt-dlp
+pip install moviepy
 ```
 
----
+### Configuración
 
-## 📖 Uso
+Abre el script y cambia la ruta de la carpeta:
 
-### 🔄 Convertir MOV a MP4
+```python
+carpeta = r"C:\Users\TU_USUARIO\Videos"
+```
 
-Convierte todos los archivos `.MOV` de una carpeta a `.mp4` automáticamente.
+### Uso
 
 ```bash
 python convertidor.py
 ```
 
-> Edita la variable `carpeta` dentro del script para apuntar a la carpeta con tus archivos `.MOV`.
-
-Al finalizar muestra un resumen de los archivos convertidos y los que fallaron.
+El script busca todos los `.mov` en la carpeta, los convierte y guarda los `.mp4` en la misma ubicación. Al finalizar muestra un resumen con los archivos convertidos y los posibles errores.
 
 ---
 
-### 🎵 Descargar audio de YouTube en MP3
+## 🎵 youtube_mp3.py — YouTube a MP3
+
+Descarga el audio de un vídeo de YouTube y lo guarda como `.mp3` a 192 kbps.
+
+### Instalación
+
+```bash
+pip install yt-dlp
+```
+
+> El script instala `yt-dlp` automáticamente si no lo tienes.
+
+### Configuración
+
+Abre el script y cambia la carpeta de destino:
+
+```python
+carpeta_destino = r"C:\Users\TU_USUARIO\Music"
+```
+
+### Uso
 
 ```bash
 python youtube_mp3.py https://www.youtube.com/watch?v=XXXXX
 ```
 
-El archivo se guarda en la carpeta de **Música** del sistema.
-
 ---
 
-### 🎬 Descargar vídeo de YouTube en MP4
+## 🎥 youtube_mp4.py — YouTube a MP4
+
+Descarga un vídeo de YouTube en la mejor calidad disponible en formato `.mp4`.
+
+### Instalación
+
+```bash
+pip install yt-dlp
+```
+
+> El script instala `yt-dlp` automáticamente si no lo tienes.
+
+### Configuración
+
+Abre el script y cambia la carpeta de destino:
+
+```python
+carpeta_destino = r"C:\Users\TU_USUARIO\Videos"
+```
+
+### Uso
 
 ```bash
 python youtube_mp4.py https://www.youtube.com/watch?v=XXXXX
 ```
 
-El archivo se guarda en la carpeta de **Vídeos** del sistema.
+---
+
+## 🖼️ convertir_imagenes.py — Imágenes a WebP / AVIF
+
+Convierte imágenes desde cualquier formato (JPG, PNG, BMP, TIFF...) a `.webp` o `.avif`. Funciona de forma interactiva: pregunta paso a paso qué convertir, con qué calidad y dónde guardar.
+
+### Instalación
+
+```bash
+pip install Pillow
+```
+
+### Uso
+
+```bash
+python convertir_imagenes.py
+```
+
+El script te irá preguntando:
+
+1. Ruta de la imagen o carpeta
+2. Si convertir todas, una sola, o una selección manual
+3. Formato de salida (WebP o AVIF)
+4. Calidad (1-100, recomendado 85)
+5. Ancho máximo en píxeles (opcional, útil para fotos de móvil)
+6. Carpeta de destino
 
 ---
 
-## ⚠️ Notas
+## 📝 Notas
 
-- `convertidor.py` usa **moviepy** para re-encodear el vídeo, por lo que puede tardar unos minutos según el tamaño del archivo.
-- Los scripts de YouTube usan **yt-dlp**, que se instala automáticamente si no está disponible.
-- Los archivos originales `.MOV` **no se eliminan** tras la conversión.
-- Compatible con Windows, macOS y Linux.
+- Los scripts de YouTube requieren conexión a internet y que el vídeo sea público.
+- `convertidor.py` re-encodea el vídeo, por lo que puede tardar varios minutos según el tamaño.
+- Para imágenes de iPhone (4032×3024px) se recomienda usar `--ancho-max 1600` para reducir el peso significativamente.
+- AVIF ofrece mejor compresión que WebP pero tiene menos compatibilidad con navegadores antiguos.
 
 ---
 
