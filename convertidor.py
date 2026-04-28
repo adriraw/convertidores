@@ -1,17 +1,51 @@
-from moviepy.editor import VideoFileClip
+from moviepy import VideoFileClip
 import os
 
-carpeta = r"ruta/a/tu/carpeta"  # Change this for ur route to the folder with .mov files
+carpeta = r"C:\Users\name\Videos" #en "name" pon tu nombre de usuario del ordenador, por ejemplo: C:\Users\adri\Videos
 
-for archivo in os.listdir(carpeta):
-    if archivo.endswith(".mov"):
-        entrada = os.path.join(carpeta, archivo)
-        salida = os.path.join(carpeta, archivo.replace(".mov", ".mp4"))
-        
-        print(f"Convirtiendo: {archivo}")
+# Buscar archivos MOV
+archivos_mov = [f for f in os.listdir(carpeta) if f.lower().endswith(".mov")]
+
+if not archivos_mov:
+    print("⚠️  No se encontraron archivos .mov en la carpeta.")
+    exit()
+
+print(f"📂 Se encontraron {len(archivos_mov)} archivo(s) .mov para convertir:")
+for f in archivos_mov:
+    print(f"   - {f}")
+print()
+
+convertidos = []
+fallidos = []
+
+for archivo in archivos_mov:
+    entrada = os.path.join(carpeta, archivo)
+    salida = os.path.join(carpeta, archivo.replace(".mov", ".mp4"))
+
+    print(f"⏳ Convirtiendo: {archivo}")
+    try:
         clip = VideoFileClip(entrada)
         clip.write_videofile(salida)
         clip.close()
-        print(f"✅ Listo: {salida}")
+        convertidos.append(archivo)
+        print(f"✅ Listo: {archivo}\n")
+    except Exception as e:
+        fallidos.append((archivo, str(e)))
+        print(f"❌ Error al convertir {archivo}: {e}\n")
 
-print("All archives converted!")
+# Resumen final
+print("=" * 50)
+print("📊 RESUMEN FINAL")
+print("=" * 50)
+
+if convertidos:
+    print(f"\n✅ Convertidos correctamente ({len(convertidos)}):")
+    for f in convertidos:
+        print(f"   - {f.replace('.mov', '.mp4')}")
+
+if fallidos:
+    print(f"\n❌ Fallidos ({len(fallidos)}):")
+    for f, error in fallidos:
+        print(f"   - {f} → {error}")
+
+print()
